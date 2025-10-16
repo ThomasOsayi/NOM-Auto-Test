@@ -9,7 +9,7 @@ import {
 } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { db } from '../config/firebase';
+import { db } from '../../lib/firebase';
 
 interface SignupData {
   email: string;

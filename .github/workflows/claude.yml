@@ -1,0 +1,22 @@
+name: Claude Code Action Official
+
+on:
+  workflow_dispatch:
+  issue_comment:
+    types: [created, edited]
+  pull_request:
+    types: [opened, reopened, synchronize, edited, labeled]
+
+jobs:
+  claude:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Claude Code Action
+        uses: anthropics/claude-code-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}

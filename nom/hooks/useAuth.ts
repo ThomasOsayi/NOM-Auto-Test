@@ -48,18 +48,22 @@ export function useAuth() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
-      setUser(firebaseUser);
+      try {
+        setUser(firebaseUser);
 
-      if (firebaseUser) {
-        const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
-        if (userDoc.exists()) {
-          setUserProfile(userDoc.data() as UserProfile);
+        if (firebaseUser) {
+          const userDoc = await getDoc(doc(db, 'users', firebaseUser.uid));
+          if (userDoc.exists()) {
+            setUserProfile(userDoc.data() as UserProfile);
+          }
+        } else {
+          setUserProfile(null);
         }
-      } else {
-        setUserProfile(null);
+      } catch (err) {
+        console.error('Auth state change error:', err);
+      } finally {
+        setLoading(false);
       }
-
-      setLoading(false);
     });
 
     return unsubscribe;
@@ -159,5 +163,3 @@ export function useAuth() {
     isAuthenticated: !!user,
   };
 }
-
-

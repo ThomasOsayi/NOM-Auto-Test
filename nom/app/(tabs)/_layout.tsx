@@ -1,4 +1,4 @@
-import { Tabs, Redirect } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function TabsLayout() {
